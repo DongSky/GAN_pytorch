@@ -145,7 +145,7 @@ for epoch in range(epoches):
             j+=1;i+=1
             for p in D.parameters():
                 p.data.clamp_(-1e-2,1e-2)
-            D.zero_grad()
+            d_optim.zero_grad()
             real1,_=data
             batch_size=real1.size(0)
             real1=real1.cuda()
@@ -173,7 +173,7 @@ for epoch in range(epoches):
 
         for p in D.parameters():
             p.requires_grad=False
-        G.zero_grad()
+        g_optim.zero_grad()
         labelv=Variable(label.fill_(real))
         eriri_G=D(fake1)
         #eriri_G=-criterion(output,labelv).mean()
