@@ -124,7 +124,7 @@ g_optim=optim.Adam(G.parameters(),betas=(beta1,0.999),lr=learning_rate)
 
 for epoch in range(epoches):
     for i,data in enumerate(dataloader,0):
-        D.zero_grad()
+        d_optim.zero_grad()
         real1,_=data
         batch_size=real1.size(0)
         real1=real1.cuda()
@@ -148,7 +148,7 @@ for epoch in range(epoches):
         eriri_D=eriri_D_fake+eriri_D_real
         d_optim.step()
 
-        G.zero_grad()
+        g_optim.zero_grad()
         labelv=Variable(label.fill_(real))
         output=D(fake1)
         eriri_G=criterion(output,labelv)
